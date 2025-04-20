@@ -1,97 +1,237 @@
-
 <!DOCTYPE html>
-<html lang="pt-Br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio | Vitor Gabriel</title>
+  <title>Vitor Gabriel | Desenvolvedor .NET</title>
+  <meta name="description" content="Landing page de Vitor Gabriel, desenvolvedor .NET com projetos reais, foco em performance e tecnologias como ViGEm, Razor e ASP.NET.">
+  <meta name="author" content="Vitor Gabriel">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f7ff;
-      color: #333;
+    :root {
+      --bg: #0d1117;
+      --text: #c9d1d9;
+      --highlight: #58a6ff;
+      --card-bg: #161b22;
+      --soft: #8b949e;
+    }
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
-    header {
-      background-color: #2E3A87;
+    html, body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      background: linear-gradient(145deg, #0d1117, #161b22);
+      animation: fadeIn 2s ease;
+    }
+    .hero img {
+      width: 140px;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(88,166,255,0.2);
+      margin-bottom: 1rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--highlight);
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--soft);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .buttons a {
+      text-decoration: none;
+      background: var(--highlight);
+      color: #000;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: pulseButton 2.5s infinite;
+    }
+    .buttons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      transform: skewX(-25deg);
+      transition: left 0.5s ease;
+    }
+    .buttons a:hover::after {
+      left: 125%;
+    }
+    .buttons a:hover {
+      background: #1f6feb;
       color: white;
-      padding: 2rem;
+    }
+    @keyframes pulseButton {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .section {
+      max-width: 1000px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    .section h2 {
+      font-size: 2rem;
+      color: var(--highlight);
+      margin-bottom: 2rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
+    .about p {
+      font-size: 1.1rem;
+      color: var(--soft);
+      line-height: 1.7;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
     }
-    header p {
-      margin-top: 0.5rem;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem;
-    }
-    .links a {
-      color: #2E3A87;
-      margin-right: 1rem;
-      text-decoration: none;
-      font-weight: bold;
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
     .project {
-      background: white;
-      border-radius: 8px;
+      background: var(--card-bg);
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 15px rgba(88,166,255,0.2);
     }
     .project h3 {
-      margin-top: 0;
+      color: var(--highlight);
+      margin-bottom: 0.5rem;
     }
-    .qr {
+    .project h3 span.icon {
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    .project p {
+      color: var(--soft);
+      font-size: 0.95rem;
+    }
+    .project a {
+      display: block;
+      margin-top: 10px;
+      color: var(--highlight);
+      text-decoration: underline;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    footer {
       text-align: center;
-      margin-top: 2rem;
+      padding: 3rem 1rem 2rem;
+      font-size: 0.9rem;
+      color: var(--soft);
     }
-    .qr img {
-      width: 120px;
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <header>
+  <section class="hero">
+    <img src="https://avatars.githubusercontent.com/u/00000000?v=4" alt="Vitor Gabriel" onerror="this.style.display='none'">
     <h1>Vitor Gabriel</h1>
-    <p>Desenvolvedor .NET | C# | ASP.NET MVC | Projetos Reais</p>
-    <div class="links">
+    <p>Desenvolvedor .NET focado em performance, integrações e experiência real com ViGEm, Razor e sistemas completos.</p>
+    <div class="buttons">
       <a href="https://github.com/VitorGCC" target="_blank">GitHub</a>
       <a href="https://www.linkedin.com/in/vitor-costa-a114751ba/" target="_blank">LinkedIn</a>
     </div>
-  </header>
-  <div class="container">
-    <section>
-      <h2>Projetos em Destaque</h2>
+  </section>
 
+  <section class="section about">
+    <h2>Sobre Mim</h2>
+    <p>
+      Sou técnico em Desenvolvimento de Sistemas, apaixonado por transformar ideias em códigos funcionais. Criei projetos reais como o GamepadEmulator e sistemas web completos com ASP.NET, aplicando práticas modernas, integração com APIs e foco em experiência de usuário.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Projetos em Destaque</h2>
+    <div class="projects">
       <div class="project">
-        <h3>GamepadEmulator</h3>
-        <p>Emulador de controle Xbox utilizando teclado e mouse. Desenvolvido em C# com .NET 8 e integração com ViGEm. Interface moderna com HUD, ajuste de sensibilidade e modo stealth para jogos como Warzone.</p>
-        <p><strong>Tecnologias:</strong> C#, .NET 8, ViGEm, Windows Forms</p>
+        <h3><span class="icon">🎮</span> GamepadEmulator</h3>
+        <p>Emulador de controle Xbox via teclado e mouse. Totalmente indetectável por jogos como Warzone, com HUD, ajustes de sensibilidade e modo stealth.</p>
+        <a href="https://github.com/VitorGCC/GamepadEmulator" target="_blank">Ver repositório</a>
       </div>
-
       <div class="project">
-        <h3>Sistema de Vendas de Peças Automotivas</h3>
-        <p>Sistema web para gerenciamento de vendas com login, cadastro de produtos e painel administrativo. Banco de dados relacional com MySQL.</p>
-        <p><strong>Tecnologias:</strong> C#, Razor Pages, HTML, CSS, MySQL</p>
+        <h3><span class="icon">🛒</span> Fix Power</h3>
+        <p>E-commerce de peças automotivas com Razor Pages, banco de dados relacional e painel administrativo completo.</p>
+        <a href="https://github.com/VitorGCC/Projeto-Fix-Power" target="_blank">Ver repositório</a>
       </div>
-
       <div class="project">
-        <h3>BurgerPrince</h3>
-        <p>Sistema web inspirado em uma hamburgueria para controle de pedidos, produtos e usuários. Projeto com padrões MVC e gestão de sessões.</p>
-        <p><strong>Tecnologias:</strong> ASP.NET MVC, Razor, MySQL, GitHub</p>
+        <h3><span class="icon">🍔</span> BurgerPrince</h3>
+        <p>Sistema web de pedidos inspirado em uma hamburgueria, com autenticação, cadastro de produtos e layout personalizado.</p>
+        <a href="https://github.com/VitorGCC/BurgerPrince" target="_blank">Ver repositório</a>
       </div>
-    </section>
-
-    <div class="qr">
-      <p>Escaneie para acessar:</p>
-      <img src="qr_github_linkedin.png" alt="QR Code GitHub e LinkedIn">
     </div>
-  </div>
+  </section>
+
+  <section class="section">
+    <h2>Habilidades Técnicas</h2>
+    <div class="projects">
+      <div class="project">
+        <h3><span class="icon">⚙️</span> C# / .NET 8</h3>
+        <p>Back-end robusto, orientado a objetos e com foco em performance.</p>
+      </div>
+      <div class="project">
+        <h3><span class="icon">🌐</span> ASP.NET MVC / Razor Pages</h3>
+        <p>Criação de sistemas dinâmicos e responsivos com roteamento eficiente.</p>
+      </div>
+      <div class="project">
+        <h3><span class="icon">🗃️</span> MySQL / Banco de Dados</h3>
+        <p>Modelagem, consultas otimizadas e integração com aplicações reais.</p>
+      </div>
+      <div class="project">
+        <h3><span class="icon">🧪</span> Testes Automatizados</h3>
+        <p>Experiência com xUnit, Selenium e boas práticas de validação.</p>
+      </div>
+      <div class="project">
+        <h3><span class="icon">🎮</span> ViGEm / Windows Forms</h3>
+        <p>Integração com emuladores e interfaces desktop para controle total.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contato">
+    &copy; 2025 Vitor Gabriel — Todos os direitos reservados.
+  </footer>
 </body>
 </html>
