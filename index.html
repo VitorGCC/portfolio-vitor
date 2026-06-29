@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vitor Gabriel | Desenvolvedor .NET</title>
-  <meta name="description" content="Landing page de Vitor Gabriel, desenvolvedor .NET com projetos reais, foco em performance e tecnologias como ViGEm, Razor e ASP.NET.">
+  <title>Vitor Gabriel | Desenvolvedor Fullstack</title>
+  <meta name="description" content="Landing page de Vitor Gabriel, desenvolvedor Fullstack com foco em TypeScript, React, .NET, metodologias ágeis e sistemas completos.">
   <meta name="author" content="Vitor Gabriel">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --bg: #0d1117;
-      --text: #c9d1d9;
-      --highlight: #58a6ff;
-      --card-bg: #161b22;
-      --soft: #8b949e;
+      --bg: #060810;
+      --text: #e2e8f0;
+      --highlight: #3b82f6;
+      --card-bg: #0f172a;
+      --soft: #94a3b8;
+      --accent: #61dafb;
     }
     * {
       margin: 0;
@@ -20,53 +25,151 @@
       box-sizing: border-box;
     }
     html, body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
       background-color: var(--bg);
       color: var(--text);
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      transition: background-color 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--highlight), var(--accent));
+      box-shadow: 0 0 10px var(--highlight), 0 0 5px var(--accent);
+      z-index: 1000;
+      transition: width 0.1s ease-out;
     }
     .hero {
       text-align: center;
-      padding: 5rem 2rem 3rem;
-      background: linear-gradient(145deg, #0d1117, #161b22);
-      animation: fadeIn 2s ease;
+      padding: 9rem 2rem 5rem;
+      background: radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.2), transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(97, 218, 251, 0.08), transparent 50%),
+                  #060810;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
     }
-    .hero img {
-      width: 140px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .avatar-container {
+      width: 155px;
+      height: 155px;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 2;
+      perspective: 1000px;
+      transform-style: preserve-3d;
       border-radius: 50%;
-      box-shadow: 0 0 30px rgba(88,166,255,0.2);
-      margin-bottom: 1rem;
-      animation: float 6s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .avatar-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--highlight);
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.35);
+      transition: border-color 0.5s, box-shadow 0.5s;
+    }
+    .avatar-container:hover img {
+      box-shadow: 0 0 45px rgba(97, 218, 251, 0.6);
+      border-color: var(--accent);
+    }
+    .avatar-glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      mix-blend-mode: overlay;
     }
     .hero h1 {
-      font-size: 3rem;
-      color: var(--highlight);
-      margin-bottom: 0.5rem;
+      font-size: 3.8rem;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      z-index: 2;
+      position: relative;
+      background: linear-gradient(120deg, #ffffff, #93c5fd, #60a5fa, #a78bfa, #f472b6, #ffffff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.2s ease, textGradientFlow 8s linear infinite;
     }
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--soft);
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
+      z-index: 2;
+      position: relative;
+      line-height: 1.6;
+      animation: fadeIn 1.5s ease;
+    }
+    #typewriter {
+      color: var(--highlight);
+      font-weight: 700;
+      border-right: 2px solid var(--highlight);
+      padding-right: 4px;
+      animation: blink 0.75s step-end infinite;
     }
     .buttons {
-      margin-top: 2rem;
+      margin-top: 2.75rem;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.25rem;
+      z-index: 2;
+      position: relative;
+      animation: fadeIn 1.8s ease;
     }
     .buttons a {
       text-decoration: none;
-      background: var(--highlight);
-      color: #000;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: all 0.3s ease;
+      background: linear-gradient(135deg, var(--highlight), #1d4ed8);
+      color: #ffffff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
       position: relative;
       overflow: hidden;
-      animation: pulseButton 2.5s infinite;
+      display: inline-block;
     }
     .buttons a::after {
       content: '';
@@ -77,161 +180,1118 @@
       height: 100%;
       background: rgba(255, 255, 255, 0.15);
       transform: skewX(-25deg);
-      transition: left 0.5s ease;
+      transition: left 0.6s ease;
     }
     .buttons a:hover::after {
       left: 125%;
     }
     .buttons a:hover {
-      background: #1f6feb;
-      color: white;
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
     }
-    @keyframes pulseButton {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .buttons a.secondary {
+      background: transparent;
+      border: 2px solid rgba(59, 130, 246, 0.4);
+      color: #ffffff;
+      box-shadow: none;
     }
+    .buttons a.secondary:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--highlight);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
+    }
+    
+    /* Tech Loop Marquee */
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      padding: 1.25rem 0;
+      position: relative;
+      z-index: 2;
+    }
+    .marquee-container::before,
+    .marquee-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .marquee-container::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--bg), transparent);
+      transition: background 1.2s;
+    }
+    .marquee-container::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--bg), transparent);
+      transition: background 1.2s;
+    }
+    .marquee-content {
+      display: flex;
+      gap: 4rem;
+      animation: marquee-scroll 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-content:hover {
+      animation-play-state: paused;
+    }
+    .marquee-item {
+      color: var(--soft);
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .marquee-item:hover {
+      color: var(--highlight);
+      transform: scale(1.05);
+    }
+
     .section {
       max-width: 1000px;
-      margin: 4rem auto;
+      margin: 6rem auto;
       padding: 0 2rem;
+      position: relative;
+      z-index: 1;
     }
     .section h2 {
-      font-size: 2rem;
-      color: var(--highlight);
-      margin-bottom: 2rem;
+      font-size: 2.25rem;
+      color: #ffffff;
+      margin-bottom: 2.5rem;
       text-align: center;
+      position: relative;
     }
+    .section h2::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--highlight);
+      margin: 0.75rem auto 0;
+      border-radius: 2px;
+    }
+    
     .about p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--soft);
-      line-height: 1.7;
+      line-height: 1.8;
       text-align: center;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
     }
+
+    /* Terminal Console */
+    .terminal {
+      background: #020617;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(59, 130, 246, 0.05);
+      font-family: 'Courier New', Courier, monospace;
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+    .terminal-header {
+      background: #0f172a;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .terminal-buttons {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-terminal {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .btn-terminal.red { background: #ef4444; }
+    .btn-terminal.yellow { background: #eab308; }
+    .btn-terminal.green { background: #22c55e; }
+    
+    .terminal-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--soft);
+      font-size: 0.85rem;
+    }
+    .terminal-body {
+      padding: 1.25rem;
+      height: 300px;
+      overflow-y: auto;
+      color: #38bdf8;
+      font-size: 0.95rem;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .terminal-line {
+      margin-bottom: 0.5rem;
+      word-break: break-all;
+    }
+    .terminal-line.output {
+      color: var(--text);
+    }
+    .terminal-line.error {
+      color: #f87171;
+    }
+    .highlight-term {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .input-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .prompt {
+      color: #4ade80;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    #terminal-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #38bdf8;
+      font-family: inherit;
+      font-size: inherit;
+      width: 100%;
+    }
+    
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 2.5rem;
+      perspective: 1000px;
     }
     .project {
       background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.1s ease-out;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .project::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--highlight), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 3;
+    }
+    .project::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(59, 130, 246, 0.08), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      mix-blend-mode: overlay;
+    }
+    .project:hover::before {
+      transform: scaleX(1);
+    }
+    .project:hover::after {
+      opacity: 1;
     }
     .project:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 15px rgba(88,166,255,0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .project * {
+      position: relative;
+      z-index: 2;
+      transform: translateZ(25px);
+      transition: transform 0.3s ease;
     }
     .project h3 {
+      color: #ffffff;
+      font-size: 1.35rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      transition: color 0.3s ease;
+    }
+    .project:hover h3 {
       color: var(--highlight);
-      margin-bottom: 0.5rem;
     }
     .project h3 span.icon {
-      display: inline-block;
-      animation: pulse 2s infinite;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateZ(45px);
+    }
+    .project h3 span.icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--highlight);
+      stroke-width: 2.2px;
+      fill: none;
+      transition: stroke 0.3s, transform 0.3s;
+    }
+    .project:hover h3 span.icon svg {
+      stroke: var(--accent);
+      transform: scale(1.15) rotate(5deg);
     }
     .project p {
       color: var(--soft);
-      font-size: 0.95rem;
+      font-size: 0.975rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      transform: translateZ(15px);
     }
     .project a {
-      display: block;
-      margin-top: 10px;
+      display: inline-block;
       color: var(--highlight);
-      text-decoration: underline;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+      transform: translateZ(20px);
+    }
+    .project a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--highlight);
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+    .project a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    .project a:hover {
+      color: #ffffff;
+    }
+
+    /* Modal System */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 8, 16, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 45px rgba(59, 130, 246, 0.15);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      text-align: left;
+    }
+    .modal.open .modal-content {
+      transform: scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: var(--soft);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .modal-close:hover {
+      color: #ef4444;
+    }
+    .modal-title {
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .modal-desc {
+      color: var(--soft);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+    .modal-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.25rem;
+    }
+    .modal-techs span {
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .modal-button {
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--highlight), #1d4ed8);
+      color: #ffffff;
+      padding: 0.85rem 2.25rem;
+      border-radius: 30px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+    .modal-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .stagger > .reveal:nth-child(1) { transition-delay: 0.1s; }
+    .stagger > .reveal:nth-child(2) { transition-delay: 0.2s; }
+    .stagger > .reveal:nth-child(3) { transition-delay: 0.3s; }
+    .stagger > .reveal:nth-child(4) { transition-delay: 0.4s; }
+    .stagger > .reveal:nth-child(5) { transition-delay: 0.5s; }
+    .stagger > .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
     }
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    footer {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-      font-size: 0.9rem;
-      color: var(--soft);
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      100% { transform: scale(1.25); }
     }
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: var(--highlight); }
+    }
+    @keyframes textGradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes marquee-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    footer {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+      font-size: 0.9rem;
+      color: var(--soft);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
+  <canvas id="particles-canvas"></canvas>
+
   <section class="hero">
-    <img src="https://avatars.githubusercontent.com/u/00000000?v=4" alt="Vitor Gabriel" onerror="this.style.display='none'">
+    <div class="avatar-container">
+      <img src="https://avatars.githubusercontent.com/u/74849480?v=4" alt="Vitor Gabriel" onerror="this.style.display='none'">
+    </div>
     <h1>Vitor Gabriel</h1>
-    <p>Desenvolvedor .NET focado em performance, integrações e experiência real com ViGEm, Razor e sistemas completos.</p>
+    <p>Desenvolvedor Fullstack focado em <span id="typewriter"></span></p>
     <div class="buttons">
-      <a href="https://github.com/VitorGCC" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/vitor-costa-a114751ba/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/VitorGCC" target="_blank" class="magnetic">GitHub</a>
+      <a href="https://www.linkedin.com/in/vitor-costa-a114751ba/" target="_blank" class="magnetic secondary">LinkedIn</a>
     </div>
   </section>
 
-  <section class="section about">
+  <!-- Tech Loop Marquee -->
+  <div class="marquee-container">
+    <div class="marquee-content">
+      <div class="marquee-item">⚛️ React</div>
+      <div class="marquee-item">🟦 TypeScript</div>
+      <div class="marquee-item">🎯 C#</div>
+      <div class="marquee-item">💻 .NET 8</div>
+      <div class="marquee-item">🗃️ MySQL</div>
+      <div class="marquee-item">☕ Java</div>
+      <div class="marquee-item">🐘 PHP</div>
+      <div class="marquee-item">⚙️ C++</div>
+      <div class="marquee-item">👥 Scrum</div>
+      <div class="marquee-item">📋 Kanban</div>
+      <!-- Duplicated content for infinite looping -->
+      <div class="marquee-item">⚛️ React</div>
+      <div class="marquee-item">🟦 TypeScript</div>
+      <div class="marquee-item">🎯 C#</div>
+      <div class="marquee-item">💻 .NET 8</div>
+      <div class="marquee-item">🗃️ MySQL</div>
+      <div class="marquee-item">☕ Java</div>
+      <div class="marquee-item">🐘 PHP</div>
+      <div class="marquee-item">⚙️ C++</div>
+      <div class="marquee-item">👥 Scrum</div>
+      <div class="marquee-item">📋 Kanban</div>
+    </div>
+  </div>
+
+  <section class="section about reveal">
     <h2>Sobre Mim</h2>
     <p>
-      Sou técnico em Desenvolvimento de Sistemas, apaixonado por transformar ideias em códigos funcionais. Criei projetos reais como o GamepadEmulator e sistemas web completos com ASP.NET, aplicando práticas modernas, integração com APIs e foco em experiência de usuário.
+      Sou formado em Desenvolvimento de Sistemas e graduando em Engenharia de Software. Atuo como Estagiário em Desenvolvimento Fullstack na Ultrasistech, apaixonado por transformar ideias complexas em soluções funcionais e de alta performance. Tenho experiência prática no ciclo completo de desenvolvimento de software, colaborando em equipes ágeis que adotam Scrum e Kanban para entregas contínuas e eficientes.
     </p>
+
+    <!-- Interactive Hacker Terminal -->
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <span class="btn-terminal red"></span>
+          <span class="btn-terminal yellow"></span>
+          <span class="btn-terminal green"></span>
+        </div>
+        <div class="terminal-title">vitorgcc@ultrasistech: ~</div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="terminal-line">Seja bem-vindo ao console do Vitor! Digite <span class="highlight-term">help</span> para listar os comandos.</div>
+        <div class="terminal-line input-line">
+          <span class="prompt">vitorgcc@ultrasistech:~$</span>
+          <input type="text" id="terminal-input" autocomplete="off">
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="section">
     <h2>Projetos em Destaque</h2>
-    <div class="projects">
-      <div class="project">
-        <h3><span class="icon">🎮</span> GamepadEmulator</h3>
+    <div class="projects stagger">
+      <div class="project reveal" data-project="gamepademulator">
+        <h3><span class="icon" data-lucide="gamepad-2"></span> GamepadEmulator</h3>
         <p>Emulador de controle Xbox via teclado e mouse. Totalmente indetectável por jogos como Warzone, com HUD, ajustes de sensibilidade e modo stealth.</p>
-        <a href="https://github.com/VitorGCC/GamepadEmulator" target="_blank">Ver repositório</a>
+        <a href="https://github.com/VitorGCC/GamepadEmulator" target="_blank" class="project-link">Ver repositório</a>
       </div>
-      <div class="project">
-        <h3><span class="icon">🛒</span> Fix Power</h3>
+      <div class="project reveal" data-project="fixpower">
+        <h3><span class="icon" data-lucide="shopping-cart"></span> Fix Power</h3>
         <p>E-commerce de peças automotivas com Razor Pages, banco de dados relacional e painel administrativo completo.</p>
-        <a href="https://github.com/VitorGCC/Projeto-Fix-Power" target="_blank">Ver repositório</a>
+        <a href="https://github.com/VitorGCC/Projeto-Fix-Power" target="_blank" class="project-link">Ver repositório</a>
       </div>
-      <div class="project">
-        <h3><span class="icon">🍔</span> BurgerPrince</h3>
+      <div class="project reveal" data-project="industrialsafetysystem">
+        <h3><span class="icon" data-lucide="shield-check"></span> IndustrialSafetySystem</h3>
+        <p>Sistema web voltado para a gestão de segurança corporativa, conformidade de processos e integridade operacional em indústrias.</p>
+        <a href="https://github.com/VitorGCC/IndustrialSystem" target="_blank" class="project-link">Ver repositório</a>
+      </div>
+      <div class="project reveal" data-project="burgerprince">
+        <h3><span class="icon" data-lucide="utensils"></span> BurgerPrince</h3>
         <p>Sistema web de pedidos inspirado em uma hamburgueria, com autenticação, cadastro de produtos e layout personalizado.</p>
-        <a href="https://github.com/VitorGCC/BurgerPrince" target="_blank">Ver repositório</a>
+        <a href="https://github.com/VitorGCC/BurgerPrince" target="_blank" class="project-link">Ver repositório</a>
       </div>
     </div>
   </section>
 
   <section class="section">
     <h2>Habilidades Técnicas</h2>
-    <div class="projects">
-      <div class="project">
-        <h3><span class="icon">⚙️</span> C# / .NET 8</h3>
-        <p>Back-end robusto, orientado a objetos e com foco em performance.</p>
+    <div class="projects stagger">
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="atom"></span> React & TypeScript</h3>
+        <p>Desenvolvimento moderno no front-end, componentização fluida e tipagem forte.</p>
       </div>
-      <div class="project">
-        <h3><span class="icon">🌐</span> ASP.NET MVC / Razor Pages</h3>
-        <p>Criação de sistemas dinâmicos e responsivos com roteamento eficiente.</p>
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="cpu"></span> C# / .NET 8</h3>
+        <p>Back-end robusto, APIs performáticas, arquitetura limpa e MVC/Razor Pages.</p>
       </div>
-      <div class="project">
-        <h3><span class="icon">🗃️</span> MySQL / Banco de Dados</h3>
-        <p>Modelagem, consultas otimizadas e integração com aplicações reais.</p>
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="database"></span> MySQL / Banco de Dados</h3>
+        <p>Modelagem de dados relacionais, modelagem física e otimização de consultas.</p>
       </div>
-      <div class="project">
-        <h3><span class="icon">🧪</span> Testes Automatizados</h3>
-        <p>Experiência com xUnit, Selenium e boas práticas de validação.</p>
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="beaker"></span> Testes Automatizados</h3>
+        <p>Garantia de qualidade com xUnit e testes de ponta a ponta com Selenium.</p>
       </div>
-      <div class="project">
-        <h3><span class="icon">🎮</span> ViGEm / Windows Forms</h3>
-        <p>Integração com emuladores e interfaces desktop para controle total.</p>
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="kanban"></span> Metodologias Ágeis</h3>
+        <p>Organização e trabalho em equipe ágil utilizando Scrum, Kanban, Jira e Trello.</p>
+      </div>
+      <div class="project reveal">
+        <h3><span class="icon" data-lucide="plug"></span> Integrações & Desktop</h3>
+        <p>Experiência prática em desenvolvimento desktop e baixo nível com ViGEm, Windows Forms, Java e PHP.</p>
       </div>
     </div>
   </section>
 
+  <!-- Project Modal Overlay -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="modal-project-details"></div>
+    </div>
+  </div>
+
   <footer id="contato">
     &copy; 2025 Vitor Gabriel — Todos os direitos reservados.
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize vector icons
+      lucide.createIcons();
+
+      // 1. Scroll Reveal setup
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { 
+        threshold: 0.05,
+        rootMargin: "0px 0px -50px 0px"
+      });
+
+      document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 2. 3D Tilt, Spotlight & Holographic Glare Effect on Cards
+      document.querySelectorAll(".project").forEach(card => {
+        // Dynamically create glare element
+        const glare = document.createElement("div");
+        glare.className = "glare";
+        card.appendChild(glare);
+
+        card.addEventListener("mousemove", e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // Spotlight variable positions
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          // 3D Tilt calculation
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((centerY - y) / centerY) * 12; // Max 12deg tilt
+          const rotateY = ((x - centerX) / centerX) * 12;
+          
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03) translateY(-5px)`;
+          card.style.transition = "transform 0.08s ease-out";
+
+          // Holographic glare positioning (opposite direction to mouse)
+          const pctX = (x / rect.width) * 100;
+          const pctY = (y / rect.height) * 100;
+          glare.style.background = `radial-gradient(circle at ${100 - pctX}% ${100 - pctY}%, rgba(255, 255, 255, 0.12) 0%, transparent 60%)`;
+          glare.style.opacity = "1";
+        });
+
+        card.addEventListener("mouseleave", () => {
+          // Reset positioning and opacity
+          card.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateY(0px)";
+          card.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+          glare.style.opacity = "0";
+          glare.style.transition = "opacity 0.6s ease";
+        });
+      });
+
+      // 3. Magnetic Buttons
+      document.querySelectorAll(".magnetic").forEach(btn => {
+        btn.addEventListener("mousemove", e => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          // Magnet pull effect by 35% of offset
+          btn.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px)`;
+          btn.style.transition = "transform 0.1s ease-out";
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          // Snap back
+          btn.style.transform = "translate(0px, 0px)";
+          btn.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+        });
+      });
+
+      // 4. Magnetic & 3D Tilt handler for Avatar
+      const avatar = document.querySelector(".avatar-container");
+      const avatarGlare = document.createElement("div");
+      avatarGlare.className = "avatar-glare";
+      avatar.appendChild(avatarGlare);
+
+      avatar.addEventListener("mousemove", e => {
+        const rect = avatar.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Magnetic offset (pull towards mouse)
+        const mx = (x - rect.width / 2) * 0.3;
+        const my = (y - rect.height / 2) * 0.3;
+
+        // 3D Tilt rotation
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((centerY - y) / centerY) * 15;
+        const rotateY = ((x - centerX) / centerX) * 15;
+        
+        avatar.style.transform = `translate(${mx}px, ${my}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        avatar.style.transition = "transform 0.08s ease-out";
+
+        // Glare shine
+        const pctX = (x / rect.width) * 100;
+        const pctY = (y / rect.height) * 100;
+        avatarGlare.style.background = `radial-gradient(circle at ${100 - pctX}% ${100 - pctY}%, rgba(255, 255, 255, 0.18) 0%, transparent 60%)`;
+        avatarGlare.style.opacity = "1";
+      });
+
+      avatar.addEventListener("mouseleave", () => {
+        avatar.style.transform = "translate(0px, 0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        avatar.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+        avatarGlare.style.opacity = "0";
+        avatarGlare.style.transition = "opacity 0.6s ease";
+      });
+
+      // 5. Scroll-driven Section Background Shift
+      const sections = document.querySelectorAll(".section");
+      const bgColors = ["#060810", "#080614", "#030c10"]; // blue-black, purple-black, teal-black
+      
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = Array.from(sections).indexOf(entry.target);
+            if (index !== -1 && bgColors[index + 1]) {
+              document.body.style.backgroundColor = bgColors[index + 1];
+            } else {
+              document.body.style.backgroundColor = bgColors[0];
+            }
+          }
+        });
+      }, { 
+        threshold: 0.25
+      });
+      
+      sections.forEach(sec => sectionObserver.observe(sec));
+
+      // 6. Scroll Parallax on Hero Gradients
+      const hero = document.querySelector(".hero");
+      window.addEventListener("scroll", () => {
+        const scrolled = window.scrollY;
+        // Shift background gradients down at 30% of scroll speed
+        hero.style.backgroundPositionY = `${scrolled * 0.3}px`;
+      });
+
+      // 7. Typewriter Effect
+      const words = ["TypeScript & React", "C# & .NET 8", "metodologias ágeis (Scrum/Kanban)", "soluções Fullstack completas", "APIs robustas e performance"];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typewriterEl = document.getElementById("typewriter");
+
+      function type() {
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+          typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 30 : 65;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          typeSpeed = 2000; // Pause at end of word
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeSpeed = 600; // Pause before typing next word
+        }
+
+        setTimeout(type, typeSpeed);
+      }
+      setTimeout(type, 1000); // Initial start delay
+
+      // 8. Interactive Particles Background (Canvas)
+      const canvas = document.getElementById("particles-canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      const maxParticles = 65;
+      let mouse = { x: null, y: null, radius: 120 };
+
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+      });
+      window.addEventListener("mouseleave", () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2 + 1;
+          this.speedX = Math.random() * 0.5 - 0.25;
+          this.speedY = Math.random() * 0.5 - 0.25;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+          if (mouse.x != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.hypot(dx, dy);
+            if (distance < mouse.radius) {
+              let force = (mouse.radius - distance) / mouse.radius;
+              this.x -= (dx / distance) * force * 1.5;
+              this.y -= (dy / distance) * force * 1.5;
+            }
+          }
+        }
+        draw() {
+          ctx.fillStyle = "rgba(88, 166, 255, 0.35)";
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < maxParticles; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        connect();
+        requestAnimationFrame(animate);
+      }
+
+      function connect() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            let dx = particles[i].x - particles[j].x;
+            let dy = particles[i].y - particles[j].y;
+            let distance = Math.hypot(dx, dy);
+            if (distance < 115) {
+              let opacity = 1 - (distance / 115);
+              ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.12})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+          if (mouse.x != null) {
+            let dx = particles[i].x - mouse.x;
+            let dy = particles[i].y - mouse.y;
+            let distance = Math.hypot(dx, dy);
+            if (distance < mouse.radius) {
+              let opacity = 1 - (distance / mouse.radius);
+              ctx.strokeStyle = `rgba(97, 218, 251, ${opacity * 0.2})`;
+              ctx.lineWidth = 0.9;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      animate();
+
+      // 9. Interactive Hacker Terminal Logic
+      const terminalInput = document.getElementById("terminal-input");
+      const terminalBody = document.getElementById("terminal-body");
+
+      let gameMode = false;
+      let targetNumber = 0;
+      let gameAttempts = 0;
+
+      // Keep focus on input when clicking terminal body
+      document.querySelector(".terminal").addEventListener("click", () => {
+        terminalInput.focus();
+      });
+
+      const termCommands = {
+        help: "Comandos disponíveis:<br/>" +
+              "  <span class='highlight-term'>about</span>       - Sobre a minha história acadêmica e profissional<br/>" +
+              "  <span class='highlight-term'>skills</span>      - Minhas principais tecnologias com níveis de domínio<br/>" +
+              "  <span class='highlight-term'>projects</span>    - Repositórios e projetos de destaque com links<br/>" +
+              "  <span class='highlight-term'>game</span>        - Inicia um mini-jogo interativo no console<br/>" +
+              "  <span class='highlight-term'>contact</span>     - Canais para se conectar comigo diretamente<br/>" +
+              "  <span class='highlight-term'>clear</span>       - Limpa a tela do terminal do console",
+        about: "Sou formado em Desenvolvimento de Sistemas e graduando em Engenharia de Software. " +
+               "Atualmente, trabalho na Ultrasistech como Estagiário de Desenvolvimento Fullstack, " +
+               "integrando times ágeis focados na entrega contínua com Scrum e Kanban.",
+        skills: "Habilidades Técnicas:<br/>" +
+                "  React & TypeScript   ████████████████ 100%<br/>" +
+                "  C# & .NET 8          ██████████████░░ 90%<br/>" +
+                "  MySQL & DBs          ████████████░░░░ 80%<br/>" +
+                "  Metodologias Ágeis   ██████████████░░ 90%<br/>" +
+                "  Testes (xUnit/Sel)   ████████░░░░░░░░ 50%<br/>" +
+                "  Outros (Java/PHP/C++) ██████████░░░░░░ 70%",
+        projects: "Projetos em Destaque:<br/>" +
+                  "  • <a href='https://github.com/VitorGCC/GamepadEmulator' target='_blank' style='color:#61dafb;'>GamepadEmulator (EmuShot)</a> - Emulador Xbox stealth desenvolvido em C#.<br/>" +
+                  "  • <a href='https://github.com/VitorGCC/Projeto-Fix-Power' target='_blank' style='color:#61dafb;'>Fix Power</a> - Plataforma de E-commerce com Razor Pages.<br/>" +
+                  "  • <a href='https://github.com/VitorGCC/IndustrialSystem' target='_blank' style='color:#61dafb;'>IndustrialSafetySystem</a> - Gestão de conformidade industrial em PHP.<br/>" +
+                  "  • <a href='https://github.com/VitorGCC/BurgerPrince' target='_blank' style='color:#61dafb;'>BurgerPrince</a> - Sistema web de pedidos desenvolvido em Java.",
+        contact: "Conecte-se comigo:<br/>" +
+                 "  LinkedIn  : <a href='https://www.linkedin.com/in/vitor-costa-a114751ba/' target='_blank' style='color:#61dafb;'>linkedin.com/in/vitor-costa-a114751ba</a><br/>" +
+                 "  Email     : <a href='mailto:vitor@ultrasistech.com' style='color:#61dafb;'>vitor@ultrasistech.com</a><br/>" +
+                 "  GitHub    : <a href='https://github.com/VitorGCC' target='_blank' style='color:#61dafb;'>github.com/VitorGCC</a>"
+      };
+
+      terminalInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const rawInput = terminalInput.value;
+          const cmd = rawInput.trim().toLowerCase();
+          terminalInput.value = "";
+
+          // Print user input line
+          const prevLine = document.createElement("div");
+          prevLine.className = "terminal-line";
+          prevLine.innerHTML = `<span class="prompt">${gameMode ? '[JOGO] ' : 'vitorgcc@ultrasistech:~$'}</span> <span class="terminal-line output">${rawInput}</span>`;
+          terminalBody.insertBefore(prevLine, terminalInput.parentElement);
+
+          if (gameMode) {
+            handleGameInput(cmd);
+          } else {
+            if (cmd === "clear") {
+              const lines = terminalBody.querySelectorAll(".terminal-line");
+              lines.forEach(line => {
+                if (!line.classList.contains("input-line")) {
+                  line.remove();
+                }
+              });
+              // Re-print the welcome message after clearing
+              const welcomeLine = document.createElement("div");
+              welcomeLine.className = "terminal-line";
+              welcomeLine.innerHTML = `Seja bem-vindo ao console do Vitor! Digite <span class="highlight-term">help</span> para listar os comandos.`;
+              terminalBody.insertBefore(welcomeLine, terminalInput.parentElement);
+            } else if (cmd === "game" || cmd === "play") {
+              startGame();
+            } else if (cmd !== "") {
+              const outputLine = document.createElement("div");
+              if (termCommands[cmd]) {
+                outputLine.className = "terminal-line output";
+                outputLine.innerHTML = termCommands[cmd];
+              } else {
+                outputLine.className = "terminal-line error";
+                outputLine.innerHTML = `Comando não reconhecido: '${cmd}'. Digite <span class="highlight-term">help</span> para ver a lista de comandos.`;
+              }
+              terminalBody.insertBefore(outputLine, terminalInput.parentElement);
+            }
+          }
+
+          // Automatically scroll down
+          terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+      });
+
+      function startGame() {
+        gameMode = true;
+        targetNumber = Math.floor(Math.random() * 100) + 1;
+        gameAttempts = 0;
+
+        const outputLine = document.createElement("div");
+        outputLine.className = "terminal-line output";
+        outputLine.innerHTML = `[JOGO] 🎮 Pensei em um número de 1 a 100. Tente adivinhar!<br/>` +
+                               `[JOGO] Digite seu palpite (ou digite <span class='highlight-term'>sair</span> para finalizar):`;
+        terminalBody.insertBefore(outputLine, terminalInput.parentElement);
+      }
+
+      function handleGameInput(input) {
+        if (input === "sair" || input === "exit") {
+          gameMode = false;
+          const outputLine = document.createElement("div");
+          outputLine.className = "terminal-line output";
+          outputLine.innerHTML = `[JOGO] Você abandonou o jogo. O número era <span class='highlight-term'>${targetNumber}</span>. Digite <span class='highlight-term'>help</span> para voltar aos comandos!`;
+          terminalBody.insertBefore(outputLine, terminalInput.parentElement);
+          return;
+        }
+
+        const guess = parseInt(input);
+        if (isNaN(guess) || guess < 1 || guess > 100) {
+          const outputLine = document.createElement("div");
+          outputLine.className = "terminal-line error";
+          outputLine.innerHTML = `[JOGO] Digite um número válido entre 1 e 100 ou <span class='highlight-term'>sair</span>.`;
+          terminalBody.insertBefore(outputLine, terminalInput.parentElement);
+          return;
+        }
+
+        gameAttempts++;
+        const outputLine = document.createElement("div");
+        outputLine.className = "terminal-line output";
+
+        if (guess < targetNumber) {
+          outputLine.innerHTML = `[JOGO] ⬆️ Mais alto! Tente novamente:`;
+        } else if (guess > targetNumber) {
+          outputLine.innerHTML = `[JOGO] ⬇️ Mais baixo! Tente novamente:`;
+        } else {
+          outputLine.innerHTML = `[JOGO] 🎉 Parabéns! Você acertou! O número secreto era <span class='highlight-term'>${targetNumber}</span>.<br/>` +
+                                 `[JOGO] Tentativas utilizadas: <span class='highlight-term'>${gameAttempts}</span>. Modo de jogo finalizado!`;
+          gameMode = false;
+        }
+        terminalBody.insertBefore(outputLine, terminalInput.parentElement);
+      }
+
+      // 10. Project Modal Details Setup
+      const projectDetails = {
+        gamepademulator: {
+          title: "🎮 GamepadEmulator (EmuShot)",
+          desc: "Um emulador de controle de Xbox 360 de nível de sistema projetado para rodar silenciosamente em segundo plano, permitindo mapear mouse e teclado de forma indetectável em jogos (com HUD em tempo real, ajuste fino de sensibilidade e integração profunda com o ViGEm Framework).",
+          techs: ["C#", "ViGEm Client", "Windows Forms", "Git"],
+          link: "https://github.com/VitorGCC/GamepadEmulator"
+        },
+        fixpower: {
+          title: "🛒 Fix Power",
+          desc: "Uma plataforma de comércio eletrônico (e-commerce) robusta desenvolvida para a venda de peças automotivas. Conta com integração completa de banco de dados relacional (MySQL), painel de controle administrativo para controle de vendas/estoque e interface construída com ASP.NET Razor Pages.",
+          techs: ["C#", "ASP.NET Razor Pages", "MySQL", "CSS3"],
+          link: "https://github.com/VitorGCC/Projeto-Fix-Power"
+        },
+        industrialsafetysystem: {
+          title: "🛡️ IndustrialSafetySystem",
+          desc: "Um sistema web corporativo completo voltado para a gestão de segurança corporativa, auditorias internas de segurança do trabalho e relatórios de conformidade com normas vigentes. Permite monitorar integridade e agilidade em grandes indústrias.",
+          techs: ["PHP", "MySQL", "HTML5", "CSS3"],
+          link: "https://github.com/VitorGCC/IndustrialSystem"
+        },
+        burgerprince: {
+          title: "🍔 BurgerPrince",
+          desc: "Sistema web interativo para controle de pedidos e gerenciamento operacional de uma hamburgueria, contendo autenticação de usuários, cadastro e controle de estoque de produtos e interface totalmente integrada.",
+          techs: ["Java", "HTML5", "CSS3", "JavaScript"],
+          link: "https://github.com/VitorGCC/BurgerPrince"
+        }
+      };
+
+      const modal = document.getElementById("project-modal");
+      const modalDetails = document.getElementById("modal-project-details");
+      const modalClose = document.querySelector(".modal-close");
+
+      document.querySelectorAll(".project").forEach(card => {
+        const projKey = card.getAttribute("data-project");
+        if (!projKey || !projectDetails[projKey]) return;
+
+        const link = card.querySelector(".project-link");
+        if (link) {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openProject(projKey);
+          });
+        }
+        
+        card.addEventListener("click", () => {
+          openProject(projKey);
+        });
+      });
+
+      function openProject(key) {
+        const data = projectDetails[key];
+        modalDetails.innerHTML = `
+          <h4 class="modal-title">${data.title}</h4>
+          <p class="modal-desc">${data.desc}</p>
+          <div class="modal-techs">
+            ${data.techs.map(t => `<span>${t}</span>`).join("")}
+          </div>
+          <a href="${data.link}" target="_blank" class="modal-button">Acessar Repositório no GitHub</a>
+        `;
+        modal.classList.add("open");
+      }
+
+      modalClose.addEventListener("click", () => {
+        modal.classList.remove("open");
+      });
+
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("open");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
