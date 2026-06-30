@@ -716,12 +716,12 @@
           <span class="btn-terminal yellow"></span>
           <span class="btn-terminal green"></span>
         </div>
-        <div class="terminal-title">vitorgcc@ultrasistech: ~</div>
+        <div class="terminal-title">vitorGCC: ~</div>
       </div>
       <div class="terminal-body" id="terminal-body">
         <div class="terminal-line">Seja bem-vindo ao console do Vitor! Digite <span class="highlight-term">help</span> para listar os comandos.</div>
         <div class="terminal-line input-line">
-          <span class="prompt">vitorgabriel491@hotmail.com~$</span>
+          <span class="prompt">vitorGCC~$</span>
           <input type="text" id="terminal-input" autocomplete="off">
         </div>
       </div>
@@ -1121,7 +1121,7 @@
                   "  • <a href='https://github.com/VitorGCC/BurgerPrince' target='_blank' style='color:#61dafb;'>BurgerPrince</a> - Sistema web de pedidos desenvolvido em Java.",
         contact: "Conecte-se comigo:<br/>" +
                  "  LinkedIn  : <a href='https://www.linkedin.com/in/vitor-costa-a114751ba/' target='_blank' style='color:#61dafb;'>linkedin.com/in/vitor-costa-a114751ba</a><br/>" +
-                 "  Email     : <a href='mailto:vitor@ultrasistech.com' style='color:#61dafb;'>vitor@ultrasistech.com</a><br/>" +
+                 "  Email     : <a href='mailto:vitorgabriel491@hotmail.com' style='color:#61dafb;'>vitorgabriel491@hotmail.com</a><br/>" +
                  "  GitHub    : <a href='https://github.com/VitorGCC' target='_blank' style='color:#61dafb;'>github.com/VitorGCC</a>"
       };
 
@@ -1134,7 +1134,7 @@
           // Print user input line
           const prevLine = document.createElement("div");
           prevLine.className = "terminal-line";
-          prevLine.innerHTML = `<span class="prompt">${gameMode ? '[JOGO] ' : 'vitorgcc@ultrasistech:~$'}</span> <span class="terminal-line output">${rawInput}</span>`;
+          prevLine.innerHTML = `<span class="prompt">${gameMode ? '[JOGO] ' : 'vitorGCC~$'}</span> <span class="terminal-line output">${rawInput}</span>`;
           terminalBody.insertBefore(prevLine, terminalInput.parentElement);
 
           if (gameMode) {
